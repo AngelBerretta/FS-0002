@@ -1,35 +1,89 @@
 @import "tailwindcss";
 
+/* Clase-based dark mode: activa dark: cuando <html> tiene la clase "dark" */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
+  /* ── Light theme (default) ───────────────────────── */
   --color-primary: ***REMOVED***024ce2;
   --color-secondary: ***REMOVED***006877;
   --color-secondary-container: ***REMOVED***3fe1fd;
+  --color-on-secondary-container: ***REMOVED***001f24;
+
   --color-background: ***REMOVED***f7f9fb;
   --color-surface: ***REMOVED***f7f9fb;
   --color-surface-container-lowest: ***REMOVED***ffffff;
   --color-surface-container-low: ***REMOVED***f2f4f6;
   --color-surface-container: ***REMOVED***eceef0;
   --color-surface-container-high: ***REMOVED***e6e8ea;
+  --color-surface-container-highest: ***REMOVED***d8dade;
+
   --color-on-surface: ***REMOVED***191c1e;
   --color-on-surface-variant: ***REMOVED***434655;
   --color-on-primary: ***REMOVED***ffffff;
   --color-on-primary-fixed-variant: ***REMOVED***003ab2;
+
   --color-outline: ***REMOVED***737687;
   --color-outline-variant: ***REMOVED***c3c5d8;
+
   --color-error: ***REMOVED***ba1a1a;
   --color-primary-container: ***REMOVED***3668fc;
   --color-inverse-primary: ***REMOVED***b6c4ff;
 }
 
+/* ── Dark theme ──────────────────────────────────────
+   Paleta ajustada: azul vibrante en lugar de lavanda
+   para que botones y links se vean naturales.         */
+.dark {
+  color-scheme: dark;
+
+  /* Azul brillante que se lee bien sobre fondos oscuros */
+  --color-primary: ***REMOVED***5b8dee;
+  --color-secondary: ***REMOVED***3db5c8;
+  --color-secondary-container: ***REMOVED***003d47;
+  --color-on-secondary-container: ***REMOVED***a2eeff;
+
+  /* Fondos neutros muy oscuros con tinte azul suave */
+  --color-background: ***REMOVED***111418;
+  --color-surface: ***REMOVED***111418;
+  --color-surface-container-lowest: ***REMOVED***0a0e12;
+  --color-surface-container-low: ***REMOVED***181c20;
+  --color-surface-container: ***REMOVED***1c2025;
+  --color-surface-container-high: ***REMOVED***262b30;
+  --color-surface-container-highest: ***REMOVED***313639;
+
+  /* Textos: blancos suaves, nunca puro ***REMOVED***fff */
+  --color-on-surface: ***REMOVED***e2e5eb;
+  --color-on-surface-variant: ***REMOVED***bfc3d0;
+  --color-on-primary: ***REMOVED***ffffff;
+  --color-on-primary-fixed-variant: ***REMOVED***82a9f7;
+
+  /* Bordes y outline */
+  --color-outline: ***REMOVED***8e92a4;
+  --color-outline-variant: ***REMOVED***3d404e;
+
+  --color-error: ***REMOVED***ff8a8a;
+  --color-primary-container: ***REMOVED***1f3e8f;
+  --color-inverse-primary: ***REMOVED***024ce2;
+}
+
+/* ── Utilidades globales ─────────────────────────── */
+html {
+  background-color: var(--color-background);
+}
 
 .ambient-shadow {
   box-shadow: 0 20px 40px rgba(17, 24, 39, 0.05);
 }
+.dark .ambient-shadow {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
 
+/* Usa la variable de tema en lugar de un hex fijo */
 .no-line-separator::before,
 .no-line-separator::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: ***REMOVED***e0e3e5;
+  background: var(--color-outline-variant);
 }
