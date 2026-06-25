@@ -5,6 +5,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import ProtectedCollaboratorRoute from "./components/ProtectedCollaboratorRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { Toaster } from "sileo";
 import "./App.css";
@@ -19,6 +20,7 @@ const PostDetail = lazy(() => import("./pages/PostDetail"));
 const EditProfile = lazy(() => import("./pages/EditProfile"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Admin = lazy(() => import("./pages/Admin"));
+const Collaborator = lazy(() => import("./pages/Collaborator"));
 const Nosotros = lazy(() => import("./pages/Nosotros"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -87,6 +89,8 @@ function AppContent() {
                   </Layout>
                 }
               />
+
+              {/* ── Edición de perfil — va ANTES de /perfil/:id ── */}
               <Route
                 path="/perfil/editar"
                 element={
@@ -105,6 +109,20 @@ function AppContent() {
                   </Layout>
                 }
               />
+
+              {/* ── Panel de colaboración (COLLABORATOR + ADMIN) ── */}
+              <Route
+                path="/collaborator"
+                element={
+                  <ProtectedCollaboratorRoute>
+                    <Layout>
+                      <Collaborator />
+                    </Layout>
+                  </ProtectedCollaboratorRoute>
+                }
+              />
+
+              {/* ── Panel de administración (solo ADMIN) ── */}
               <Route
                 path="/admin"
                 element={
@@ -128,7 +146,7 @@ function AppContent() {
           </Suspense>
         </BrowserRouter>
       </AuthProvider>
-      <Toaster position="top-center" theme={theme} />
+      <Toaster position="top-center" theme={theme} duration={3000} />
     </ErrorBoundary>
   );
 }
